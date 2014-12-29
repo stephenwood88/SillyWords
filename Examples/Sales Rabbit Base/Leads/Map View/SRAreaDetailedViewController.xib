@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SRAreaDetailedViewController">
+            <connections>
+                <outlet property="activeRepsTableView" destination="A7y-Jh-HhB" id="dIW-dS-9tc"/>
+                <outlet property="deleteButton" destination="Hvt-jN-1Oe" id="dnG-d5-6If"/>
+                <outlet property="repsSegmentedControl" destination="QRs-Cg-68B" id="Kcq-I0-JUw"/>
+                <outlet property="view" destination="1" id="3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view alpha="0.69999999999999973" contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="341" height="281"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="A7y-Jh-HhB">
+                    <rect key="frame" x="0.0" y="44" width="341" height="237"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <color key="sectionIndexTrackingBackgroundColor" red="1" green="0.058348933579999998" blue="0.097044368359999994" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Q7C-wx-M9P"/>
+                        <outlet property="delegate" destination="-1" id="Uwc-Ye-eFQ"/>
+                    </connections>
+                </tableView>
+                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lO5-1O-ub3">
+                    <rect key="frame" x="0.0" y="0.0" width="341" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="barTintColor" red="0.8862745098" green="0.0039215686269999999" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </textAttributes>
+                    <items>
+                        <navigationItem id="tHH-b2-wik">
+                            <nil key="title"/>
+                            <barButtonItem key="leftBarButtonItem" systemItem="add" id="zf8-Ru-IqC">
+                                <connections>
+                                    <action selector="addRepButtonPressed:" destination="-1" id="Ncm-Kh-W0u"/>
+                                </connections>
+                            </barButtonItem>
+                            <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="QRs-Cg-68B">
+                                <rect key="frame" x="109" y="7" width="123" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Active"/>
+                                    <segment title="Inactive"/>
+                                </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="repTypeValueChanged:" destination="-1" eventType="valueChanged" id="zLy-h1-EBQ"/>
+                                </connections>
+                            </segmentedControl>
+                            <barButtonItem key="rightBarButtonItem" systemItem="trash" id="Hvt-jN-1Oe">
+                                <connections>
+                                    <action selector="deleteButtonPressed:" destination="-1" id="LCV-fR-exQ"/>
+                                </connections>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

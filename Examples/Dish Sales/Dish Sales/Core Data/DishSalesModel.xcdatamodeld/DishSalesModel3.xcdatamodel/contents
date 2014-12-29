@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="12F45" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Ach" representedClassName="Ach" syncable="YES">
+        <attribute name="accountNumber" optional="YES" transient="YES" attributeType="String" valueTransformerName="" syncable="YES"/>
+        <attribute name="accountNumberEncrypted" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="accountType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="financialInstitution" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="routingNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="salt" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="agreement" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Agreement" inverseName="ach" inverseEntity="Agreement" syncable="YES"/>
+    </entity>
+    <entity name="Address" representedClassName="Address" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zip" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="billingPerson" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="billingAddress" inverseEntity="Person" syncable="YES"/>
+        <relationship name="person" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="address" inverseEntity="Person" syncable="YES"/>
+    </entity>
+    <entity name="Agreement" representedClassName="Agreement" syncable="YES">
+        <attribute name="agemniLeadId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="agreementId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="campaignCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateCreated" attributeType="Date" indexed="YES" syncable="YES"/>
+        <attribute name="dateModified" attributeType="Date" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="salt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="saved" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="signature" optional="YES" transient="YES" valueTransformerName="" syncable="YES"/>
+        <attribute name="signatureEncrypted" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="signedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="submitted" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
+        <attribute name="terms" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" attributeType="String" syncable="YES"/>
+        <relationship name="ach" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Ach" inverseName="agreement" inverseEntity="Ach" syncable="YES"/>
+        <relationship name="creditCard" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="CreditCard" inverseName="agreement" inverseEntity="CreditCard" syncable="YES"/>
+        <relationship name="person" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="agreement" inverseEntity="Person" syncable="YES"/>
+        <relationship name="serviceInfo" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="ServiceInfo" inverseName="agreement" inverseEntity="ServiceInfo" syncable="YES"/>
+    </entity>
+    <entity name="Area" representedClassName="Area" syncable="YES">
+        <attribute name="areaId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateCreated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dateModified" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="overlayReference" optional="YES" transient="YES" syncable="YES"/>
+        <attribute name="polygonReference" optional="YES" transient="YES" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="activeUsers" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="User" inverseName="activeArea" inverseEntity="User" syncable="YES"/>
+        <relationship name="inactiveUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="inactiveAreas" inverseEntity="User" syncable="YES"/>
+        <relationship name="mapPoints" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="MapPoint" inverseName="area" inverseEntity="MapPoint" syncable="YES"/>
+        <relationship name="office" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Office" inverseName="areas" inverseEntity="Office" syncable="YES"/>
+    </entity>
+    <entity name="CreditCard" representedClassName="CreditCard" syncable="YES">
+        <attribute name="cvv" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expirationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="number" optional="YES" transient="YES" attributeType="String" valueTransformerName="" syncable="YES"/>
+        <attribute name="numberEncrypted" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="salt" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="agreement" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Agreement" inverseName="creditCard" inverseEntity="Agreement" syncable="YES"/>
+    </entity>
+    <entity name="Department" representedClassName="Department" syncable="YES">
+        <attribute name="deleted" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="departmentId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="regions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Region" inverseName="department" inverseEntity="Region" syncable="YES"/>
+    </entity>
+    <entity name="Lead" representedClassName="Lead" syncable="YES">
+        <attribute name="appointmentDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="appointmentTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="appointmentWindow" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currentProvider" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateCreated" attributeType="Date" syncable="YES"/>
+        <attribute name="dateModified" attributeType="Date" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" syncable="YES"/>
+        <attribute name="leadId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" syncable="YES"/>
+        <attribute name="markedToDelete" transient="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="outOfContractDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="rank" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="saved" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" attributeType="String" syncable="YES"/>
+        <attribute name="windowSelected" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="person" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="lead" inverseEntity="Person" syncable="YES"/>
+    </entity>
+    <entity name="MapPoint" representedClassName="MapPoint" syncable="YES">
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="area" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Area" inverseName="mapPoints" inverseEntity="Area" syncable="YES"/>
+    </entity>
+    <entity name="Office" representedClassName="Office" syncable="YES">
+        <attribute name="deleted" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="officeId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="areas" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Area" inverseName="office" inverseEntity="Area" syncable="YES"/>
+        <relationship name="region" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Region" inverseName="offices" inverseEntity="Region" syncable="YES"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="offices" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Person" representedClassName="Person" syncable="YES">
+        <attribute name="businessName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="customerInfoView" optional="YES" transient="YES" syncable="YES"/>
+        <attribute name="dateOfBirth" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="editingView" optional="YES" transient="YES" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" defaultValueString="English" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="leadDetailView" optional="YES" transient="YES" syncable="YES"/>
+        <attribute name="phoneAlternate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phoneCell" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phonePrimary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="salt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ssn" optional="YES" transient="YES" attributeType="String" valueTransformerName="" syncable="YES"/>
+        <attribute name="ssnEncrypted" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="address" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Address" inverseName="person" inverseEntity="Address" syncable="YES"/>
+        <relationship name="agreement" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Agreement" inverseName="person" inverseEntity="Agreement" syncable="YES"/>
+        <relationship name="billingAddress" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Address" inverseName="billingPerson" inverseEntity="Address" syncable="YES"/>
+        <relationship name="lead" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Lead" inverseName="person" inverseEntity="Lead" syncable="YES"/>
+    </entity>
+    <entity name="Prequal" representedClassName="Prequal" syncable="YES">
+        <attribute name="address1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="address2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="areaId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="buildersName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="censusBlockGroup" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="creditLevel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="prequalId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="saleDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subdivision" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="zipCode" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Region" representedClassName="Region" syncable="YES">
+        <attribute name="deleted" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="regionId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="department" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Department" inverseName="regions" inverseEntity="Department" syncable="YES"/>
+        <relationship name="offices" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Office" inverseName="region" inverseEntity="Office" syncable="YES"/>
+    </entity>
+    <entity name="ServiceInfo" representedClassName="ServiceInfo" syncable="YES">
+        <attribute name="autoPay" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="internetAccess" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="other2Description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="other2Price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="otherDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="otherPrice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="package" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promoPrice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="provider" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="receiverConfiguration" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="regularPrice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="setupPrice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tvs" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <relationship name="agreement" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Agreement" inverseName="serviceInfo" inverseEntity="Agreement" syncable="YES"/>
+    </entity>
+    <entity name="SlimLead" representedClassName="SlimLead" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateCreated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="leadId" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street2" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="slimLeads" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="blue" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="color" optional="YES" transient="YES" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="green" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="red" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="role" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="activeArea" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Area" inverseName="activeUsers" inverseEntity="Area" syncable="YES"/>
+        <relationship name="inactiveAreas" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Area" inverseName="inactiveUsers" inverseEntity="Area" syncable="YES"/>
+        <relationship name="offices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Office" inverseName="users" inverseEntity="Office" syncable="YES"/>
+        <relationship name="slimLeads" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SlimLead" inverseName="user" inverseEntity="SlimLead" syncable="YES"/>
+        <relationship name="userLocations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UserLocation" inverseName="user" inverseEntity="UserLocation" syncable="YES"/>
+    </entity>
+    <entity name="UserLocation" representedClassName="UserLocation" syncable="YES">
+        <attribute name="alpha" optional="YES" transient="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="dateCreated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="userLocations" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Ach" positionX="-54" positionY="66" width="128" height="150"/>
+        <element name="Address" positionX="468" positionY="-216" width="128" height="150"/>
+        <element name="Agreement" positionX="-63" positionY="369" width="128" height="315"/>
+        <element name="Area" positionX="-1008" positionY="189" width="128" height="193"/>
+        <element name="CreditCard" positionX="259" positionY="522" width="128" height="135"/>
+        <element name="Department" positionX="-567" positionY="-100" width="128" height="103"/>
+        <element name="Lead" positionX="-126" positionY="-387" width="128" height="358"/>
+        <element name="MapPoint" positionX="-774" positionY="416" width="128" height="88"/>
+        <element name="Office" positionX="-965" positionY="-18" width="128" height="133"/>
+        <element name="Person" positionX="169" positionY="-360" width="128" height="330"/>
+        <element name="Prequal" positionX="-362" positionY="92" width="128" height="328"/>
+        <element name="Region" positionX="-774" positionY="-18" width="128" height="118"/>
+        <element name="ServiceInfo" positionX="315" positionY="27" width="128" height="255"/>
+        <element name="SlimLead" positionX="-567" positionY="18" width="128" height="223"/>
+        <element name="User" positionX="-774" positionY="144" width="128" height="238"/>
+        <element name="UserLocation" positionX="-569" positionY="288" width="128" height="118"/>
+    </elements>
+</model>
