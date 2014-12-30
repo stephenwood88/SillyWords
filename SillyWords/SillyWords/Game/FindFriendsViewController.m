@@ -33,15 +33,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.friendsArray = [[NSMutableArray alloc] initWithArray:[[GlobalState singleton] userFriends]];
-    NSMutableArray *temp = self.friendsArray;
-    for (NSDictionary *playerDictionary in self.game.players) {
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    for (Player *player in self.game.players) {
         for (NSDictionary *friendDictionary in self.friendsArray) {
-            if ([[playerDictionary objectForKey:kFacebookID] isEqualToString:[[friendDictionary objectForKey:kFacebookInfo] objectForKey:kFacebookID]]) {
-                [temp removeObject:friendDictionary];
+            if ([player.facebookID isEqualToString:[[friendDictionary objectForKey:kFacebookInfo] objectForKey:kFacebookID]]) {
+                [tempArray addObject:friendDictionary];
             }
         }
     }
-    self.friendsArray = temp;
+    [self.friendsArray removeObjectsInArray:tempArray];
     self.chosenFriendsArray = [[NSMutableArray alloc] init];
     BOOL found;
     self.sections = [[NSMutableDictionary alloc] init];

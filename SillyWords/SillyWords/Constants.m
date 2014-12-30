@@ -12,6 +12,7 @@ NSString * const kFacebookID = @"id";
 NSString * const kName = @"name";
 NSString * const kFacebookInfo = @"facebookInfo";
 NSString * const kUserInfo = @"userInfo";
+NSString * const kPlayerFacebookID = @"facebookID";
 //
 //// Flags
 //NSString * const kBuild20130625BugFix = @"kBuild20130625BugFix";

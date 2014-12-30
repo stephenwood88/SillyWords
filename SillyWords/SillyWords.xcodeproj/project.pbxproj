@@ -44,7 +44,6 @@
 		B8811D9515B049AE00F6F58A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8811D9415B049AE00F6F58A /* Foundation.framework */; };
 		B8811D9715B049AE00F6F58A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8811D9615B049AE00F6F58A /* CoreGraphics.framework */; };
 		B8811DA315B049AE00F6F58A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B8811DA215B049AE00F6F58A /* AppDelegate.m */; };
-		D27E92BA16692D0A00F838F6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D27E92B916692D0A00F838F6 /* Default-568h@2x.png */; };
 		D27E92C216692E6C00F838F6 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D27E92BE16692E6C00F838F6 /* Accounts.framework */; };
 		D27E92C316692E6C00F838F6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D27E92BF16692E6C00F838F6 /* AudioToolbox.framework */; };
 		D27E92C416692E6C00F838F6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D27E92C016692E6C00F838F6 /* CFNetwork.framework */; };
@@ -122,7 +121,6 @@
 		B8811D9615B049AE00F6F58A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B8811DA115B049AE00F6F58A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SillyWords/AppDelegate.h; sourceTree = "<group>"; };
 		B8811DA215B049AE00F6F58A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = /Users/stephenwood/Documents/Repo/SillyWords/SillyWords/SillyWords/AppDelegate.m; sourceTree = "<absolute>"; };
-		D27E92B916692D0A00F838F6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D27E92BE16692E6C00F838F6 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		D27E92BF16692E6C00F838F6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D27E92C016692E6C00F838F6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -283,7 +281,6 @@
 		B8811D8315B049AD00F6F58A = {
 			isa = PBXGroup;
 			children = (
-				D27E92B916692D0A00F838F6 /* Default-568h@2x.png */,
 				B8811D9815B049AE00F6F58A /* SillyWords */,
 				B8811D9115B049AE00F6F58A /* Frameworks */,
 				B8811D8F15B049AE00F6F58A /* Products */,
@@ -443,7 +440,6 @@
 				AFE1107E1A52C34B00193D74 /* FBShare.png in Resources */,
 				AF79E1741A1D3A010080D674 /* MainStoryboard.storyboard in Resources */,
 				AFE1107F1A52C34B00193D74 /* FBShare@2x.png in Resources */,
-				D27E92BA16692D0A00F838F6 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
