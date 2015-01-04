@@ -7,6 +7,7 @@
 //
 
 #import "Comms.h"
+#import "GlobalState.h"
 
 @implementation Comms
 
@@ -30,6 +31,7 @@
                if (!error) {
                    [[PFUser currentUser] setObject:[result objectForKey:@"id"] forKey:@"fbID"];
                    [[PFUser currentUser] saveInBackground];
+                   [GlobalState singleton].username = [result objectForKey:@"name"];
                }
            }];
             

@@ -13,6 +13,7 @@
 #import "Game+SillyWords.h"
 #import "Player+SillyWords.h"
 #import "Constants.h"
+#import "GlobalState.h"
 
 @interface GamePrepViewController ()
 
@@ -178,13 +179,50 @@
 
 - (IBAction)playNewGame:(UIButton *)sender {
     
-    PFObject *newGame = [PFObject objectWithClassName:@"Game"];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    Player *userPlayer = [Player newPlayer];
+    userPlayer.facebookID = [[PFUser currentUser] objectForKey:kFacebookID];
+    userPlayer.fullName = [GlobalState singleton].username;
+    userPlayer.userId = [[PFUser currentUser] objectId];
+    userPlayer.game = self.gameToEdit;
     for (Player *player in self.gameToEdit.players) {
-        PFObject *newPlayer = [PFObject objectWithClassName:@"Player"];
-        newPlayer[@"user"] = [PFObject objectWithoutDataWithClassName:@"User" objectId:player.userId];
-        PFRelation *relation = [newGame relationForKey:@"playerList"];
-        [relation addObject:newPlayer];
-        [newGame saveInBackground];
+        PFObject *newPlayer = [PFObject objectWithClassName:kPlayerClassName];
+        [newPlayer setObject:[PFObject objectWithoutDataWithClassName:kUserClassName objectId:player.userId] forKey:@"user"];
+        newPlayer[@"points"] = @0;
+        [array addObject:newPlayer];
     }
+    
+    [PFObject saveAllInBackground:array block:^(BOOL success, NSError *error){
+        PFObject *newGame = [PFObject objectWithClassName:kGameClassName];
+        PFRelation *gameToPlayerRelation = [newGame relationForKey:@"playerList"];
+        
+        for (PFObject *player in array) {
+            [gameToPlayerRelation addObject:player];
+        }
+        [newGame saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            PFRelation *userToGameRelation = [[PFUser currentUser] relationForKey:@"games"];
+            [userToGameRelation addObject:newGame];
+            [[PFUser currentUser] saveInBackground];
+        }];
+        
+        
+        
+        /*WithBlock:^(BOOL succeeded, NSError *error) {
+                PFRelation *relation = [newGame relationForKey:@"playerList"];
+                PFQuery *query = [relation query];
+                
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    for (PFObject *player in objects) {
+                        PFUser *user = [player objectForKey:@"user"];
+                        PFRelation *userToGameRelation = [user relationForKey:@"games"];
+                        [userToGameRelation addObject:newGame];
+                        [user saveInBackground];
+                    }
+                }];
+                
+            }];*/
+        
+    }];
+    
 }
 @end

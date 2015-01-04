@@ -13,6 +13,11 @@ NSString * const kName = @"name";
 NSString * const kFacebookInfo = @"facebookInfo";
 NSString * const kUserInfo = @"userInfo";
 NSString * const kPlayerFacebookID = @"facebookID";
+
+//Class Names for Parse
+NSString * const kUserClassName = @"_User";
+NSString * const kPlayerClassName = @"Player";
+NSString * const kGameClassName = @"Game";
 //
 //// Flags
 //NSString * const kBuild20130625BugFix = @"kBuild20130625BugFix";

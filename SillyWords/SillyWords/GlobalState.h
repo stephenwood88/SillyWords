@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) NSArray *userFriends;
 @property (strong, nonatomic) NSArray *allFriends;
+@property (strong, nonatomic) NSString *username;
 
 @property (strong, nonatomic) UIManagedDocument *modelDocument;
 // Core data model
