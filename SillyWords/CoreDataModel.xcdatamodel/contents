@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="13F34" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="13F34" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Game" representedClassName="Game" syncable="YES">
         <attribute name="dateModified" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="dateOfTurn" optional="YES" attributeType="Date" syncable="YES"/>
@@ -10,6 +10,7 @@
     <entity name="Player" representedClassName="Player" syncable="YES">
         <attribute name="facebookID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fullName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="partName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="points" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="sillyWord" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
@@ -18,6 +19,6 @@
     </entity>
     <elements>
         <element name="Game" positionX="-72" positionY="74" width="128" height="118"/>
-        <element name="Player" positionX="171" positionY="-171" width="128" height="148"/>
+        <element name="Player" positionX="171" positionY="-171" width="128" height="165"/>
     </elements>
 </model>

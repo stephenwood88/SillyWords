@@ -98,10 +98,10 @@
             </objects>
             <point key="canvasLocation" x="365" y="-17"/>
         </scene>
-        <!--Wall-->
+        <!--Home-->
         <scene sceneID="KfS-AS-NWm">
             <objects>
-                <viewController id="eVf-OV-0bl" customClass="WallPicturesViewController" sceneMemberID="viewController">
+                <viewController id="eVf-OV-0bl" userLabel="Home" customClass="HomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h5a-qq-BvU">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -119,15 +119,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Wall" id="Qeu-jE-sAr">
+                    <navigationItem key="navigationItem" title="Home" id="Qeu-jE-sAr" userLabel="Home">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="YKe-yG-o9P">
                             <connections>
                                 <action selector="logoutPressed:" destination="eVf-OV-0bl" id="3Ge-iN-2fA"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Upload" id="SM3-xO-RqK">
-                            <connections>
-                                <segue destination="LDc-rp-uc3" kind="push" id="jdC-ic-587"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -135,6 +130,7 @@
                         <outlet property="tableView" destination="FCO-Rp-w82" id="QkM-eD-vlm"/>
                         <segue destination="cjX-Fz-ex9" kind="push" identifier="StoreSegue" id="cbF-kh-egF"/>
                         <segue destination="nlZ-HR-MEv" kind="push" identifier="CreateGameSegue" id="Udf-FF-qcF"/>
+                        <segue destination="LDc-rp-uc3" kind="push" id="CbX-0W-H6Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ej-fe-0Ql" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -244,32 +240,41 @@
             </objects>
             <point key="canvasLocation" x="2548" y="-1133"/>
         </scene>
-        <!--Upload-->
+        <!--GamePlay-->
         <scene sceneID="jPe-MF-f9X">
             <objects>
-                <viewController id="LDc-rp-uc3" customClass="GameViewController" sceneMemberID="viewController">
+                <viewController id="LDc-rp-uc3" userLabel="GamePlay" customClass="GameViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fk2-Ea-tm5">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="v3u-FK-UjD">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="78" sectionHeaderHeight="10" sectionFooterHeight="10" id="afL-p4-MWc">
-                                <rect key="frame" x="0.0" y="113" width="320" height="303"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="afL-p4-MWc">
+                                <rect key="frame" x="0.0" y="61" width="320" height="315"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="78" id="zo2-Ke-h1H">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameCell" rowHeight="115" id="zo2-Ke-h1H" customClass="GameCell">
                                         <rect key="frame" x="0.0" y="55" width="320" height="78"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zo2-Ke-h1H" id="dgQ-ZN-zxz">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nah-tL-VBv">
+                                                    <rect key="frame" x="60" y="0.0" width="230" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -281,13 +286,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.1964285714" green="0.1964285714" blue="0.1964285714" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Upload" id="KZq-Qw-guj">
-                        <barButtonItem key="rightBarButtonItem" title="Send" id="Fvi-Tm-3SV">
-                            <connections>
-                                <action selector="sendPressed:" destination="LDc-rp-uc3" id="SD0-7Y-ZUa"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="eaA-Fr-1tJ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MNk-3h-19I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

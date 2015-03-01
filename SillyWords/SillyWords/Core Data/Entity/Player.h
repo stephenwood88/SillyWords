@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSString * userId;
 @property (nonatomic, retain) NSString * facebookID;
 @property (nonatomic, retain) NSString * fullName;
+@property (nonatomic, retain) NSString * partName;
 @property (nonatomic, retain) Game * game;
 
 @end

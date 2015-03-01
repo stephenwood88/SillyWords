@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Game+SillyWords.h"
 //#import "Constants.h"
 
 @interface GameViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) Game *game;
 
 @end

@@ -1,25 +1,26 @@
 //
-//  WallPicturesViewController.m
+//  HomeViewController.m
 //  TutorialBase
 //
 //  Created by Antonio MG on 6/23/12.
 //  Copyright (c) 2012 AMG. All rights reserved.
 //
 
-#import "WallPicturesViewController.h"
+#import "HomeViewController.h"
 #import "GameViewController.h"
 #import "HomeCell.h"
+#import "GameCell.h"
 #import "StoreViewController.h"
 #import "CreateGameViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface WallPicturesViewController ()
+@interface HomeViewController ()
 @property (nonatomic, strong) IBOutlet UIScrollView *wallScroll;
-@property (nonatomic, retain) NSArray *wallObjectsArray;
+@property (nonatomic, retain) NSArray *gamesArray;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 @end
 
-@implementation WallPicturesViewController
+@implementation HomeViewController
 
 -(void)viewDidLoad
 {
@@ -31,7 +32,23 @@
 {
     [super viewWillAppear:animated];
     //[self getWallImages];
-    
+      self.gamesArray = [[NSArray alloc] init];
+    PFRelation *relation = [[PFUser currentUser] relationForKey:@"games"];
+    PFQuery *query = [relation query];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSDictionary *gamesWithPlayers = [[NSDictionary alloc] init];
+            
+            //Make a dictionary that has the games with their corresponding players.  Parse will fetch the games with the current code but not the players that correspond to that game
+            self.gamesArray = objects;
+            [self.tableView reloadData];
+        }
+        else {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            NSLog(@"Error with Game: %@" , error);
+        }
+        
+    }];
 }
 
 #pragma mark - Private methods
@@ -117,8 +134,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 1) {
-
-        return 3;
+        if ([self.gamesArray count] >0 ) {
+            return [self.gamesArray count];
+        }
+        else {
+            return 1;
+        }
     }
     
     return 1;
@@ -128,25 +149,51 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (indexPath.section == 1) {
     
-    if (cell == nil) {
-        cell = [[HomeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        GameCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GameCell"];
+    
+        if (cell == nil) {
+            cell = [[GameCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"GameCell"];
+        }
+        
+        if ([self.gamesArray count] > 0) {
+            [cell setCell:[self.gamesArray objectAtIndex:indexPath.row]];
+        }
+        else {
+            cell.textLabel.text = @"No Games";
+        }
+        
+        [cell.layer setCornerRadius:7.0f];
+        [cell.layer setMasksToBounds:YES];
+        [cell.layer setBorderWidth:0.1f];
+        
+        return cell;
     }
     
-    if (indexPath.section == 0) {
-        cell.textLabel.text = @"New Game";
+    else {
+        HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
+        
+        if (cell == nil) {
+            cell = [[HomeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HomeCell"];
+        }
+        if (indexPath.section == 0) {
+            cell.textLabel.text = @"New Game";
+        }
+    
+        if (indexPath.section == 2) {
+            cell.textLabel.text = @"Store";
+        }
+        
+        [cell.layer setCornerRadius:7.0f];
+        [cell.layer setMasksToBounds:YES];
+        [cell.layer setBorderWidth:0.1f];
+        
+        return cell;
     }
     
-    if (indexPath.section == 2) {
-        cell.textLabel.text = @"Store";
-    }
     
-    [cell.layer setCornerRadius:7.0f];
-    [cell.layer setMasksToBounds:YES];
-    [cell.layer setBorderWidth:0.1f];
-    
-    return cell;
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -180,8 +227,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 1) {
-        return 70.0;
+    if (indexPath.section == 1 && [self.gamesArray count]>0) {
+        
+        return [self.gamesArray count]*70.0;
     }
     
     return 44.0;

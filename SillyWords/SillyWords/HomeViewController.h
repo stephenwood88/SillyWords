@@ -1,5 +1,5 @@
 //
-//  WallPicturesViewController.h
+//  HomeViewController.h
 //  TutorialBase
 //
 //  Created by Antonio MG on 6/23/12.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WallPicturesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface HomeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

@@ -17,6 +17,7 @@
 @dynamic userId;
 @dynamic facebookID;
 @dynamic fullName;
+@dynamic partName;
 @dynamic game;
 
 @end

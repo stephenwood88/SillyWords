@@ -25,10 +25,11 @@
 		AF79E1A51A1D3A7F0080D674 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF79E19E1A1D3A7F0080D674 /* GameViewController.m */; };
 		AF79E1A61A1D3A7F0080D674 /* InviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF79E1A01A1D3A7F0080D674 /* InviteViewController.m */; };
 		AF79E1A91A1D3AA00080D674 /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF79E1A81A1D3AA00080D674 /* StoreViewController.m */; };
-		AF79E1AC1A1D3AAD0080D674 /* WallPicturesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF79E1AB1A1D3AAD0080D674 /* WallPicturesViewController.m */; };
+		AF79E1AC1A1D3AAD0080D674 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF79E1AB1A1D3AAD0080D674 /* HomeViewController.m */; };
 		AF79E1B01A1D3B040080D674 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF79E1AD1A1D3B040080D674 /* main.m */; };
 		AF79E1B11A1D3B040080D674 /* SillyWords-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF79E1AE1A1D3B040080D674 /* SillyWords-Info.plist */; };
 		AF79E1B41A1D3B130080D674 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF79E1B21A1D3B130080D674 /* InfoPlist.strings */; };
+		AFA74BB51A6C2EC800E70C2A /* GameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AFA74BB41A6C2EC800E70C2A /* GameCell.m */; };
 		AFAC4F8018E2056F00A99BF5 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFAC4F7F18E2056F00A99BF5 /* Parse.framework */; };
 		AFCA0F481990352A00BB4C6C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCA0F471990352A00BB4C6C /* CoreData.framework */; };
 		AFD7E0B618CD21DC008D09DE /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD7E0B518CD21DB008D09DE /* FacebookSDK.framework */; };
@@ -95,12 +96,14 @@
 		AF79E1A01A1D3A7F0080D674 /* InviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InviteViewController.m; path = SillyWords/Game/InviteViewController.m; sourceTree = SOURCE_ROOT; };
 		AF79E1A71A1D3AA00080D674 /* StoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreViewController.h; path = SillyWords/StoreViewController.h; sourceTree = SOURCE_ROOT; };
 		AF79E1A81A1D3AA00080D674 /* StoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreViewController.m; path = SillyWords/StoreViewController.m; sourceTree = SOURCE_ROOT; };
-		AF79E1AA1A1D3AAD0080D674 /* WallPicturesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WallPicturesViewController.h; path = SillyWords/WallPicturesViewController.h; sourceTree = SOURCE_ROOT; };
-		AF79E1AB1A1D3AAD0080D674 /* WallPicturesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WallPicturesViewController.m; path = SillyWords/WallPicturesViewController.m; sourceTree = SOURCE_ROOT; };
+		AF79E1AA1A1D3AAD0080D674 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = SillyWords/HomeViewController.h; sourceTree = SOURCE_ROOT; };
+		AF79E1AB1A1D3AAD0080D674 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = SillyWords/HomeViewController.m; sourceTree = SOURCE_ROOT; };
 		AF79E1AD1A1D3B040080D674 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SillyWords/main.m; sourceTree = SOURCE_ROOT; };
 		AF79E1AE1A1D3B040080D674 /* SillyWords-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SillyWords-Info.plist"; path = "SillyWords/SillyWords-Info.plist"; sourceTree = SOURCE_ROOT; };
 		AF79E1AF1A1D3B040080D674 /* SillyWords-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SillyWords-Prefix.pch"; path = "SillyWords/SillyWords-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		AF79E1B31A1D3B130080D674 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = SillyWords/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		AFA74BB31A6C2EC800E70C2A /* GameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameCell.h; path = SillyWords/Game/Cells/GameCell.h; sourceTree = SOURCE_ROOT; };
+		AFA74BB41A6C2EC800E70C2A /* GameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameCell.m; path = SillyWords/Game/Cells/GameCell.m; sourceTree = SOURCE_ROOT; };
 		AFAC4F7F18E2056F00A99BF5 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		AFCA0F471990352A00BB4C6C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		AFD7E0B518CD21DB008D09DE /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 		AFF1A58019B9D8B200DC673E /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				AFA74BB31A6C2EC800E70C2A /* GameCell.h */,
+				AFA74BB41A6C2EC800E70C2A /* GameCell.m */,
 				AF79E18C1A1D3A690080D674 /* FacebookCell.h */,
 				AF79E18D1A1D3A690080D674 /* FacebookCell.m */,
 				AF79E18E1A1D3A690080D674 /* HomeCell.h */,
@@ -356,7 +361,7 @@
 				B8811E0115B06F5200F6F58A /* Login/Register */,
 				AFAC4F8118E4763500A99BF5 /* Game */,
 				AFAC4F8218E4767F00A99BF5 /* Store */,
-				B8811E0215B06F6600F6F58A /* Wall */,
+				B8811E0215B06F6600F6F58A /* Home */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -374,13 +379,13 @@
 			name = Login/Register;
 			sourceTree = "<group>";
 		};
-		B8811E0215B06F6600F6F58A /* Wall */ = {
+		B8811E0215B06F6600F6F58A /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				AF79E1AA1A1D3AAD0080D674 /* WallPicturesViewController.h */,
-				AF79E1AB1A1D3AAD0080D674 /* WallPicturesViewController.m */,
+				AF79E1AA1A1D3AAD0080D674 /* HomeViewController.h */,
+				AF79E1AB1A1D3AAD0080D674 /* HomeViewController.m */,
 			);
-			name = Wall;
+			name = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,12 +471,13 @@
 				AF79E18A1A1D3A560080D674 /* LoginViewController.m in Sources */,
 				AF79E18B1A1D3A560080D674 /* RegisterViewController.m in Sources */,
 				AF79E1A11A1D3A7F0080D674 /* CreateGameViewController.m in Sources */,
+				AFA74BB51A6C2EC800E70C2A /* GameCell.m in Sources */,
 				AF79E1791A1D3A150080D674 /* Game+SillyWords.m in Sources */,
 				AF79E1A21A1D3A7F0080D674 /* FindFriendsViewController.m in Sources */,
 				AF79E1A51A1D3A7F0080D674 /* GameViewController.m in Sources */,
 				AF79E1941A1D3A690080D674 /* NewGameCell.m in Sources */,
 				AF79E1931A1D3A690080D674 /* HomeCell.m in Sources */,
-				AF79E1AC1A1D3AAD0080D674 /* WallPicturesViewController.m in Sources */,
+				AF79E1AC1A1D3AAD0080D674 /* HomeViewController.m in Sources */,
 				AF79E1B01A1D3B040080D674 /* main.m in Sources */,
 				AF79E1921A1D3A690080D674 /* FacebookCell.m in Sources */,
 			);

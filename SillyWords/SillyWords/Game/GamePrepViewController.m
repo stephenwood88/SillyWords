@@ -8,6 +8,7 @@
 
 #import "GamePrepViewController.h"
 #import "CreateGameViewController.h"
+#import "GameViewController.h"
 #import "NewGameCell.h"
 #import "FacebookCell.h"
 #import "Game+SillyWords.h"
@@ -127,6 +128,10 @@
         CreateGameViewController *cgvc = segue.destinationViewController;
         cgvc.game = self.gameToEdit;
     }
+    if ([segue.identifier isEqual:@"StartGameSegue"]) {
+        GameViewController *gvc = segue.destinationViewController;
+        gvc.game = self.gameToEdit;
+    }
 }
 /*
 // Override to support conditional editing of the table view.
@@ -200,9 +205,25 @@
             [gameToPlayerRelation addObject:player];
         }
         [newGame saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            PFRelation *userToGameRelation = [[PFUser currentUser] relationForKey:@"games"];
-            [userToGameRelation addObject:newGame];
-            [[PFUser currentUser] saveInBackground];
+            if (succeeded) {
+                PFRelation *userToGameRelation = [[PFUser currentUser] relationForKey:@"games"];
+                [userToGameRelation addObject:newGame];
+                [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        GameViewController *gameController =  [self.navigationController.viewControllers objectAtIndex:1];
+                        //gamePrepController.gameToEdit = self.game;
+                        [self.navigationController popToViewController:gameController animated:YES];
+                    }
+                    else {
+                        [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                        NSLog(@"Error with User: %@" , error);
+                    }
+            }];
+            }
+            else {
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                NSLog(@"Error with Game: %@" , error);
+            }
         }];
         
         

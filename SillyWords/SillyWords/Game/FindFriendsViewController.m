@@ -144,6 +144,8 @@
     Player *newPlayer = [Player newPlayer];
     newPlayer.facebookID = tableViewCell.facebookID;
     newPlayer.fullName = tableViewCell.facebookFriendNameLabel.text;
+    NSArray *firstLastString = [tableViewCell.facebookFriendNameLabel.text componentsSeparatedByString:@" "];
+    newPlayer.partName = [NSString stringWithFormat:@"%@ %c.", [firstLastString objectAtIndex:0] ,[[firstLastString objectAtIndex:1] characterAtIndex:0]];
     newPlayer.userId = tableViewCell.userId;
     newPlayer.game = self.game;
 }
