@@ -11,5 +11,6 @@
 @interface Player (SillyWords)
 
 + (Player *)newPlayer;
+- (void)deletePlayer;
 
 @end

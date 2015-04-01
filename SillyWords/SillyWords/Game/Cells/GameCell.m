@@ -39,28 +39,31 @@
     [super setFrame:frame];
 }
 
-- (void)setCell:(Game *)game {
+- (void)setCell:(NSDictionary *)game {
     
     if (game != nil) {
         int count = 1;
         float x;
         float y;
-        for (Player *player in game.players) {
-            NSString *facebookID = player.facebookID;
-            FBProfilePictureView *fbPicture;
-            if (facebookID != nil) {
-                x = 1;
-                y = 1 + count*52;
-                fbPicture = [[FBProfilePictureView alloc] initWithFrame:CGRectMake(x, y, 52, 52)];
-                fbPicture.profileID = facebookID;
-            }
+        for (id player in [game objectForKey:@"playerList"]) {
             
-            UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(x + 52, y + 12, 150, 30)];
-            nameLabel.text = player.partName;
-            [self.contentView addSubview:fbPicture];
-            [self.contentView addSubview:nameLabel];
-        
-            count ++;
+            // turn each player in each gamme into a Player object
+            
+//            NSString *facebookID = player.facebookID;
+//            FBProfilePictureView *fbPicture;
+//            if (facebookID != nil) {
+//                x = 1;
+//                y = 1 + count*52;
+//                fbPicture = [[FBProfilePictureView alloc] initWithFrame:CGRectMake(x, y, 52, 52)];
+//                fbPicture.profileID = facebookID;
+//            }
+//            
+//            UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(x + 52, y + 12, 150, 30)];
+//            nameLabel.text = player.partName;
+//            [self.contentView addSubview:fbPicture];
+//            [self.contentView addSubview:nameLabel];
+//        
+//            count ++;
         }
     }
 }

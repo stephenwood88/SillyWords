@@ -75,4 +75,7 @@
    
 }
 
+//Some kind of sync function is needed here.  It needs to see when the device had last been synced and then query parse for all games that had been created after that sync date.  Then the new synced games need to be loaded to the home view controller.
+- (void)syncGames
+
 @end

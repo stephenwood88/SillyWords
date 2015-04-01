@@ -132,6 +132,16 @@
         GameViewController *gvc = segue.destinationViewController;
         gvc.game = self.gameToEdit;
     }
+    if ([segue.identifier isEqual:@"CreateGameSegue"]) {
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (Player *player in self.gameToEdit.players) {
+            [tempArray addObject:player];
+        }
+        for (Player *player in tempArray) {
+            [player deletePlayer];
+        }
+        [self.gameToEdit deleteGame];
+    }
 }
 /*
 // Override to support conditional editing of the table view.

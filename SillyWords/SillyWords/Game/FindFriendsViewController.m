@@ -147,22 +147,24 @@
     NSArray *firstLastString = [tableViewCell.facebookFriendNameLabel.text componentsSeparatedByString:@" "];
     newPlayer.partName = [NSString stringWithFormat:@"%@ %c.", [firstLastString objectAtIndex:0] ,[[firstLastString objectAtIndex:1] characterAtIndex:0]];
     newPlayer.userId = tableViewCell.userId;
-    newPlayer.game = self.game;
+    [self.chosenFriendsArray addObject:newPlayer];
+    //newPlayer.game = self.game;
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FacebookCell *tableViewCell = (FacebookCell *)[tableView cellForRowAtIndexPath:indexPath];
-    for (NSMutableDictionary *friendDictionary in self.chosenFriendsArray) {
-        if ([tableViewCell.facebookID isEqualToString:[friendDictionary objectForKey:kFacebookID]]) {
-            [self.chosenFriendsArray removeObject:friendDictionary];
+    for (Player *friend in self.chosenFriendsArray) {
+        if ([tableViewCell.facebookID isEqualToString:friend.facebookID]) {
+            [friend deletePlayer];
+            [self.chosenFriendsArray removeObject:friend];
         }
     }
     tableViewCell.accessoryView.hidden = YES;
     tableViewCell.accessoryType = UITableViewCellAccessoryNone;
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -170,13 +172,26 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqual:@"FindFriends"]) {
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (Player *player in self.game.players) {
+            [tempArray addObject:player];
+        }
+        for (Player *player in tempArray) {
+            [player deletePlayer];
+        }
+    }
 }
-*/
+
 
 - (IBAction)submitButtonPressed:(UIButton *)sender {
+    for (Player *player in self.chosenFriendsArray) {
+        player.game = self.game;
+    }
     GamePrepViewController *gamePrepController =  [self.navigationController.viewControllers objectAtIndex:2];
     gamePrepController.gameToEdit = self.game;
     [self.navigationController popToViewController:gamePrepController animated:YES];
+    
     //[self performSegueWithIdentifier:@"ChosenFriendsSegue" sender:self];
 }
 @end

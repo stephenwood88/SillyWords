@@ -11,5 +11,6 @@
 @interface Game (SillyWords)
 
 + (Game *)newGame;
+- (void)deleteGame;
 
 @end
