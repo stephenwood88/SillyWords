@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ServiceCalls.h"
 #import "GlobalState.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

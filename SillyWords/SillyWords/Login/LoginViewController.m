@@ -10,6 +10,7 @@
 #import "RegisterViewController.h"
 #import "ServiceCalls.h"
 #import "GlobalState.h"
+#import <FBSDKCoreKit/FBSDKApplicationDelegate.h>
 
 @interface LoginViewController ()
 @property (nonatomic, strong) IBOutlet UITextField *userTextField;
@@ -34,11 +35,12 @@
     [self.view addGestureRecognizer:tap];
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    BOOL wasHandled = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-    
-    return wasHandled;
-}
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+//    
+//    [FBSDKApplicationDelegate ]
+//    
+//    return wasHandled;
+//}
 
 - (void)dismissAll {
     
@@ -76,12 +78,21 @@
     [self.fbLogin setEnabled:YES];
     
     if (loggedIn) {
-        [[ServiceCalls singleton] getFacebookFriendsWithCompletionHandler:^(BOOL success, NSArray *allFriends, NSArray *userFriends, NSError *error) {
-            if (!error) {
-               [[GlobalState singleton] setUserFriends:userFriends];
-               [[GlobalState singleton] setAllFriends:allFriends];
-            }
-        }];
+        if ([FBSDKAccessToken currentAccessToken]) {
+            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/friends" parameters:nil]
+             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                 if (!error) {
+                     [[GlobalState singleton] setUserFriends:[result objectForKey:@"data"]];
+                 }
+             }];
+            [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me/invitable_friends" parameters:nil]
+             startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                 if (!error) {
+                     [[GlobalState singleton] setAllFriends:[result objectForKey:@"data"]];
+                 }
+             }];
+        }
+               
         [self performSegueWithIdentifier:@"LoginSuccessful" sender:self];
     }
     else {

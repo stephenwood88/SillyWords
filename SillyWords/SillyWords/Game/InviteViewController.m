@@ -44,13 +44,13 @@
     // Loop again and sort the books into their respective keys
     for (NSDictionary *dictionary in self.friendsArray)
     {
-        [[self.sections objectForKey:[[dictionary objectForKey:@"first_name"] substringToIndex:1]] addObject:dictionary];
+        [[self.sections objectForKey:[[dictionary objectForKey:@"name"] substringToIndex:1]] addObject:dictionary];
     }
     
     // Sort each section array
     for (NSString *key in [self.sections allKeys])
     {
-        [[self.sections objectForKey:key] sortUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"first_name" ascending:YES]]];
+        [[self.sections objectForKey:key] sortUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
     }
 }
 
@@ -101,55 +101,55 @@
 }
 
 #pragma mark UITableView Delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    FacebookCell *cell = (FacebookCell *)[tableView cellForRowAtIndexPath:indexPath];
-    
-    NSString *facebookID = cell.facebookID;
-    NSMutableDictionary* params =
-   // [NSMutableDictionary dictionaryWithObject:facebookID forKey:@"to"];
-    [NSMutableDictionary dictionaryWithObjectsAndKeys:
-     @"Let's Play Silly Words!", @"name",
-     @"Play a game with this person.", @"description",
-     facebookID, @"to",
-//     theUrl, @"al:ios:url",
-//     @"688613329", @"al:ios_id",
-//     @"Silly Words", @"al:ios:app_name",
-     @"{\"should_fallback\": false}", @"web",
-     [[[FBSession activeSession] accessTokenData] accessToken], @"access_token",
-//     [[[FBAppCall ] appLinkData] targetUrl], @"link",
-//     @"https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png", @"picture",
-     nil];
-    
-    
-    FBSession *facebookSession = [PFFacebookUtils session]; //You may changed this if you are not using parse.com
-    
-    [FBWebDialogs presentFeedDialogModallyWithSession:facebookSession parameters:params handler:
-     ^(FBWebDialogResult result, NSURL *resultURL, NSError *error)
-     {
-         if (error)
-         {
-             // Case A: Error launching the dialog or sending request.
-             UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Facebook" message: error.description delegate: nil cancelButtonTitle: @"Ok" otherButtonTitles: nil];
-             [alert show];
-         }
-         else
-         {
-             if (result == (FBWebDialogResultDialogCompleted))
-             {
-                 // Handle the publish feed callback
-                 NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
-                 
-                 if ([urlParams valueForKey: @"request"])
-                 {
-                     // User clicked the Share button
-                     NSLog(@"Send");
-                 }
-             }
-         }
-     }];
-}
+//
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    FacebookCell *cell = (FacebookCell *)[tableView cellForRowAtIndexPath:indexPath];
+//    
+//    NSString *facebookID = cell.facebookID;
+//    NSMutableDictionary* params =
+//   // [NSMutableDictionary dictionaryWithObject:facebookID forKey:@"to"];
+//    [NSMutableDictionary dictionaryWithObjectsAndKeys:
+//     @"Let's Play Silly Words!", @"name",
+//     @"Play a game with this person.", @"description",
+//     facebookID, @"to",
+////     theUrl, @"al:ios:url",
+////     @"688613329", @"al:ios_id",
+////     @"Silly Words", @"al:ios:app_name",
+//     @"{\"should_fallback\": false}", @"web",
+//     [[[FBSession activeSession] accessTokenData] accessToken], @"access_token",
+////     [[[FBAppCall ] appLinkData] targetUrl], @"link",
+////     @"https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png", @"picture",
+//     nil];
+//    
+//    
+//    FBSession *facebookSession = [PFFacebookUtils session]; //You may changed this if you are not using parse.com
+//    
+//    [FBWebDialogs presentFeedDialogModallyWithSession:facebookSession parameters:params handler:
+//     ^(FBWebDialogResult result, NSURL *resultURL, NSError *error)
+//     {
+//         if (error)
+//         {
+//             // Case A: Error launching the dialog or sending request.
+//             UIAlertView* alert = [[UIAlertView alloc] initWithTitle: @"Facebook" message: error.description delegate: nil cancelButtonTitle: @"Ok" otherButtonTitles: nil];
+//             [alert show];
+//         }
+//         else
+//         {
+//             if (result == (FBWebDialogResultDialogCompleted))
+//             {
+//                 // Handle the publish feed callback
+//                 NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+//                 
+//                 if ([urlParams valueForKey: @"request"])
+//                 {
+//                     // User clicked the Share button
+//                     NSLog(@"Send");
+//                 }
+//             }
+//         }
+//     }];
+//}
 
 - (NSDictionary*)parseURLParams:(NSString *)query {
     NSArray *pairs = [query componentsSeparatedByString:@"&"];

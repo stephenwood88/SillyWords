@@ -48,7 +48,7 @@
     // Loop through the books and create our keys
     for (NSDictionary *dict in self.friendsArray)
     {
-        NSString *c = [[[dict objectForKey:kFacebookInfo] objectForKey:@"first_name"] substringToIndex:1];
+        NSString *c = [[dict objectForKey:@"name"] substringToIndex:1];
         
         found = NO;
         
@@ -76,13 +76,13 @@
     // Loop again and sort the books into their respective keys
     for (NSDictionary *dictionary in self.friendsArray)
     {
-        [[self.sections objectForKey:[[[dictionary objectForKey:kFacebookInfo] objectForKey:@"first_name"] substringToIndex:1]] addObject:dictionary];
+        [[self.sections objectForKey:[[dictionary objectForKey:@"name"] substringToIndex:1]] addObject:dictionary];
     }
     
     // Sort each section array
     for (NSString *key in [self.sections allKeys])
     {
-        [[self.sections objectForKey:key] sortUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"first_name" ascending:YES]]];
+        [[self.sections objectForKey:key] sortUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
     }
     
     self.tableView.allowsMultipleSelection = YES;
@@ -125,8 +125,8 @@
     
     if ([self.friendsArray count] > 0) {
         NSDictionary *dictionary = [[self.sections valueForKey:[[[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-        NSString *name = [[dictionary objectForKey:kFacebookInfo] objectForKey:@"name"];
-        NSString *friendID = [[dictionary objectForKey:kFacebookInfo] objectForKey:@"id"];
+        NSString *name = [dictionary objectForKey:@"name"];
+        NSString *friendID = [dictionary objectForKey:@"id"];
         NSString *userId = [dictionary objectForKey:kUserInfo];
         [cell setCell:friendID name:name userId:userId];
     }

@@ -44,7 +44,7 @@
     
     //Check if there is a facebook ID, then make a Facebook Picture View
     if (facebookID != nil) {
-        FBProfilePictureView *fbPicture = [[FBProfilePictureView alloc] initWithFrame:CGRectMake(1, 1, 52, 52)];
+        FBSDKProfilePictureView *fbPicture = [[FBSDKProfilePictureView alloc] initWithFrame:CGRectMake(1, 1, 52, 52)];
         fbPicture.profileID = nil;
         fbPicture.profileID = facebookID;
         UILabel *fbLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 12, 230, 30)];

@@ -36,10 +36,12 @@
     
     self.facebookID = facebookID;
     self.userId = userId;
-    self.fbPictureView.profileID = nil;
-    self.fbPictureView.profileID = facebookID;
+    [self.fbPictureView setProfileID:nil];
+    [self.fbPictureView setProfileID:facebookID];
     
     self.facebookFriendNameLabel.text = facebookFriendName;
+    
+    //you may have to create the picture view with the url rather than setting the profile id
 }
 
 @end

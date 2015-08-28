@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Player+SillyWords.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface NewGameCell : UITableViewCell
 

@@ -35,7 +35,9 @@
     [super viewWillAppear:animated];
     //[self getWallImages];
     
-    //some kind of game syncing is necessary here.  Refer to the Dish Sales app.  They don't do it in the view will appera, but they call several methods as the load appers.
+    //some kind of game syncing is necessary here.  Refer to the Dish Sales app.  They don't do it in the view will appear, but they call several methods as the load appers.
+    
+    //So the Sales Rabbit does not perform a fetch request on viewwillappear.  Instead, a notification is given on viewdidLoad, and if there is a change in core data, then a fetch request is performed.  The order of the core data items should probably be determined by date create, that way the home table view is not rearranged every time the table reloads.
     
       self.gamesArray = [[NSMutableArray alloc] init];
     PFRelation *relation = [[PFUser currentUser] relationForKey:@"games"];
@@ -63,18 +65,18 @@
     }];
 }
 
-#pragma mark - Private methods
-
-- (void)performFetchWithRequest:(NSFetchRequest *) request{
-    // Fetch
-    NSError *error = nil;
-    NSArray *coreDataArray = [[[SRGlobalState singleton] managedObjectContext] executeFetchRequest:request error:&error];
-    self.currentLeadList = [coreDataArray mutableCopy];
-    if ([self.leadListSortKey isEqualToString:@"distance"]) {
-        [self sortResultsByDistance];
-    }
-    [self.leadTableView reloadData];
-}
+//#pragma mark - Private methods
+//
+//- (void)performFetchWithRequest:(NSFetchRequest *) request{
+//    // Fetch
+//    NSError *error = nil;
+//    NSArray *coreDataArray = [[[SRGlobalState singleton] managedObjectContext] executeFetchRequest:request error:&error];
+//    self.currentLeadList = [coreDataArray mutableCopy];
+//    if ([self.leadListSortKey isEqualToString:@"distance"]) {
+//        [self sortResultsByDistance];
+//    }
+//    [self.leadTableView reloadData];
+//}
 
 #pragma mark - UITableViewDataSource
 

@@ -7,8 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import <Parse/Parse.h>
 #import <CoreData/CoreData.h>
+#import <Parse/Parse.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "GlobalState.h"
 
 @implementation AppDelegate
@@ -25,8 +27,8 @@
 //#warning Set Parse app ID and client key
     [Parse setApplicationId:@"K6hXi37dgxqragNRyliAbxcYkvykpk3t3zKH4yFp" clientKey:@"6mZmMAiQ3exKDVS1va2sutimSnP2lj17zuEGNTLA"];
     
-    [PFFacebookUtils initializeFacebook];
-    [FBProfilePictureView class];
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
+    [FBSDKProfilePictureView class];
     [self initializeCoreDataModel];
    
     return YES;
@@ -49,11 +51,11 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
-}
+//- (void)applicationDidBecomeActive:(UIApplication *)application
+//{
+//    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+//    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
+//}
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
@@ -63,9 +65,22 @@
 //- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
 //    //return [PFFacebookUtils handleOpenURL:url];
 //}
+//
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+//    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
+//}
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
+}
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [FBSDKAppEvents activateApp];
 }
 
 #pragma mark - Core Data
