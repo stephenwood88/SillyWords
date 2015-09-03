@@ -12,6 +12,8 @@
 #import "GameCell.h"
 #import "StoreViewController.h"
 #import "CreateGameViewController.h"
+#import "GlobalState.h"
+#import "Constants.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface HomeViewController ()
@@ -19,6 +21,8 @@
 @property (nonatomic, retain) NSMutableArray *gamesArray;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, retain) NSFetchRequest *request;
+@property (nonatomic, strong) NSPredicate *gameUpdatePredicateTemplate;
+
 @end
 
 @implementation HomeViewController
@@ -29,6 +33,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.request = [NSFetchRequest fetchRequestWithEntityName:@"Game"];
+    [self updateGamesFromCoreData];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -39,30 +44,29 @@
     
     //So the Sales Rabbit does not perform a fetch request on viewwillappear.  Instead, a notification is given on viewdidLoad, and if there is a change in core data, then a fetch request is performed.  The order of the core data items should probably be determined by date create, that way the home table view is not rearranged every time the table reloads.
     
-      self.gamesArray = [[NSMutableArray alloc] init];
-    PFRelation *relation = [[PFUser currentUser] relationForKey:@"games"];
-    PFQuery *query = [relation query];
+    NSManagedObjectContext *context = [[GlobalState singleton] managedObjectContext];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDate *timeStamp = [defaults objectForKey:kTimestamp];
+    if (timeStamp == nil) {
+        timeStamp = [NSDate distantPast];
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"updatedAt >= %@", timeStamp];
+    PFQuery *query = [PFQuery queryWithClassName:@"Game" predicate:predicate];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            
-            for (id game in objects) {
-                PFRelation *playerRelation = [game relationForKey:@"playerList"];
-                PFQuery *playerListQuesry = [playerRelation query];
-                [playerListQuesry findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    
-                    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:game, @"game", objects, @"playerList", nil];
-                    [self.gamesArray addObject:dictionary];
-                    [self.tableView reloadData];
-
-                }];
+        if (!error){
+            if (objects) {
+                if (objects.count) {
+                    NSMutableArray *oldGameIds = [[NSMutableArray alloc] init];
+                    for (PFObject *game in objects) {
+                        [oldGameIds addObject:game.objectId];
+                    }
+                    NSFetchRequest *updateFetch = [NSFetchRequest fetchRequestWithEntityName:@"Game"];
+            //        updateFetch.predicate = [self.gameUpdatePredicateTemplate predicateWithSubstitutionVariables:@{@"GAME_IDS": oldGameIds}];
+                    NSArray *gamesToUpdate = [context executeFetchRequest:updateFetch error:&error];
+                }
             }
         }
-        else {
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            NSLog(@"Error with Game: %@" , error);
-        }
-        
-    }];
+    } ];
 }
 
 //#pragma mark - Private methods
@@ -184,13 +188,23 @@
     
     if (indexPath.section == 1 && [self.gamesArray count]>0) {
         
-        return [self.gamesArray count]*70.0;
+        Game *temp = [self.gamesArray objectAtIndex:indexPath.row];
+        
+        //return number of players in the game
+        return [temp.players count]*70.0;
     }
     
     return 44.0;
 }
 
+#pragma mark - Update Methods
+-(void)updateGamesFromCoreData {
+    self.gamesArray = [[[[GlobalState singleton] managedObjectContext] executeFetchRequest:self.request error:nil] mutableCopy];
+    
+    [self.tableView reloadData];
+}
 
+#pragma mark - Action methods
 -(IBAction)logoutPressed:(id)sender
 {
     [PFUser logOut];
@@ -212,6 +226,14 @@
     else if ([segue.identifier isEqualToString:@"CreateGameSegue"]) {
         CreateGameViewController *createGameController = [segue destinationViewController];
     }
+}
+
+- (NSPredicate *)gameUpdatePredicateTemplate {
+    
+    if (!_gameUpdatePredicateTemplate) {
+        _gameUpdatePredicateTemplate = [NSPredicate predicateWithFormat:@"(gameId IN $GAME_IDS)"];
+    }
+    return _gameUpdatePredicateTemplate;
 }
 
 @end

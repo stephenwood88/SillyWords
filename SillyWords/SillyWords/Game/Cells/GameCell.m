@@ -45,7 +45,7 @@
         int count = 1;
         float x;
         float y;
-        for (id player in [game objectForKey:@"playerList"]) {
+    //    for (id player in [game objectForKey:@"playerList"]) {
             
             // turn each player in each gamme into a Player object
             
@@ -64,7 +64,7 @@
 //            [self.contentView addSubview:nameLabel];
 //        
 //            count ++;
-        }
+       // }
     }
 }
 

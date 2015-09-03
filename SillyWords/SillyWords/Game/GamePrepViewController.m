@@ -44,6 +44,7 @@
     [self.tableView reloadData];
     if ([self.gameToEdit.players count] >=2) {
         self.playGameButton.hidden = NO;
+        
     }
     else {
         self.playGameButton.hidden = YES;
@@ -196,7 +197,7 @@
     
     NSMutableArray *array = [[NSMutableArray alloc] init];
     Player *userPlayer = [Player newPlayer];
-    userPlayer.facebookID = [[PFUser currentUser] objectForKey:kFacebookID];
+    userPlayer.facebookID = [[PFUser currentUser] objectForKey:@"fbID"];
     userPlayer.fullName = [GlobalState singleton].username;
     userPlayer.userId = [[PFUser currentUser] objectId];
     userPlayer.game = self.gameToEdit;
@@ -206,6 +207,8 @@
         newPlayer[@"points"] = @0;
         [array addObject:newPlayer];
     }
+    
+    //you need to set the game Id somehwere in here, as well as all the other core data things
     
     [PFObject saveAllInBackground:array block:^(BOOL success, NSError *error){
         PFObject *newGame = [PFObject objectWithClassName:kGameClassName];
@@ -229,6 +232,7 @@
                         NSLog(@"Error with User: %@" , error);
                     }
             }];
+                
             }
             else {
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];

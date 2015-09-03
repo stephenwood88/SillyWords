@@ -15,6 +15,7 @@ FOUNDATION_EXPORT NSString * const kPlayerFacebookID;
 FOUNDATION_EXPORT NSString * const kUserClassName;
 FOUNDATION_EXPORT NSString * const kPlayerClassName;
 FOUNDATION_EXPORT NSString * const kGameClassName;
+FOUNDATION_EXPORT NSString * const kTimestamp;
 //FOUNDATION_EXPORT NSInteger const kLeadsTab;
 //FOUNDATION_EXPORT NSInteger const kAgreementsTab;
 //FOUNDATION_EXPORT NSString * const kAppType;

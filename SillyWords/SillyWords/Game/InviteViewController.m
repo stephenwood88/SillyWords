@@ -8,7 +8,7 @@
 
 #import "InviteViewController.h"
 #import "GlobalState.h"
-#import "FacebookCell.h"
+#import "InviteFacebookCell.h"
 
 @interface InviteViewController ()
 
@@ -83,18 +83,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
    
-    FacebookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FacebookCell"];
+    InviteFacebookCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InviteFacebookCell"];
     
     if (cell == nil) {
-        cell = [[FacebookCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"FacebookCell"];
+        cell = [[InviteFacebookCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"InviteFacebookCell"];
     }
  
     if ([[[GlobalState singleton] allFriends] count] > 0) {
         NSDictionary *dictionary = [[self.sections valueForKey:[[[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-        //NSDictionary *dictionary = [self.friendsArray objectAtIndex:indexPath.row];
         NSString *name = [dictionary objectForKey:@"name"];
         NSString *friendID = [dictionary objectForKey:@"id"];
-        [cell setCell:friendID name:name userId:nil];
+        NSURL *url = [NSURL URLWithString:[[[dictionary objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
+        [cell setCell:friendID name:name userId:nil url:url];
     }
     
     return cell;

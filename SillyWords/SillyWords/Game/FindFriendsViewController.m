@@ -36,7 +36,7 @@
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     for (Player *player in self.game.players) {
         for (NSDictionary *friendDictionary in self.friendsArray) {
-            if ([player.facebookID isEqualToString:[[friendDictionary objectForKey:kFacebookInfo] objectForKey:kFacebookID]]) {
+            if ([player.facebookID isEqualToString:[friendDictionary objectForKey:@"id"]]) {
                 [tempArray addObject:friendDictionary];
             }
         }
@@ -127,8 +127,7 @@
         NSDictionary *dictionary = [[self.sections valueForKey:[[[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
         NSString *name = [dictionary objectForKey:@"name"];
         NSString *friendID = [dictionary objectForKey:@"id"];
-        NSString *userId = [dictionary objectForKey:kUserInfo];
-        [cell setCell:friendID name:name userId:userId];
+        [cell setCell:friendID name:name userId:nil];
     }
     
     return cell;
@@ -141,13 +140,19 @@
     FacebookCell *tableViewCell = (FacebookCell *)[tableView cellForRowAtIndexPath:indexPath];
     tableViewCell.accessoryView.hidden = NO;
     tableViewCell.accessoryType = UITableViewCellAccessoryCheckmark;
-    Player *newPlayer = [Player newPlayer];
-    newPlayer.facebookID = tableViewCell.facebookID;
-    newPlayer.fullName = tableViewCell.facebookFriendNameLabel.text;
-    NSArray *firstLastString = [tableViewCell.facebookFriendNameLabel.text componentsSeparatedByString:@" "];
-    newPlayer.partName = [NSString stringWithFormat:@"%@ %c.", [firstLastString objectAtIndex:0] ,[[firstLastString objectAtIndex:1] characterAtIndex:0]];
-    newPlayer.userId = tableViewCell.userId;
-    [self.chosenFriendsArray addObject:newPlayer];
+    
+    PFQuery *query = [PFUser query];
+    [query whereKey:@"fbID" equalTo:tableViewCell.facebookID]; // find all the women
+    NSArray *userPlayer = [query findObjects];
+        Player *newPlayer = [Player newPlayer];
+        for (PFObject *object in userPlayer) {
+            newPlayer.userId = object.objectId;
+        }
+        newPlayer.facebookID = tableViewCell.facebookID;
+        newPlayer.fullName = tableViewCell.facebookFriendNameLabel.text;
+        NSArray *firstLastString = [tableViewCell.facebookFriendNameLabel.text componentsSeparatedByString:@" "];
+        newPlayer.partName = [NSString stringWithFormat:@"%@ %c.", [firstLastString objectAtIndex:0] ,[[firstLastString objectAtIndex:1] characterAtIndex:0]];
+        [self.chosenFriendsArray addObject:newPlayer];
     //newPlayer.game = self.game;
 }
 

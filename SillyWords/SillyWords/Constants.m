@@ -18,6 +18,9 @@ NSString * const kPlayerFacebookID = @"facebookID";
 NSString * const kUserClassName = @"_User";
 NSString * const kPlayerClassName = @"Player";
 NSString * const kGameClassName = @"Game";
+
+//NSUserDefaults
+NSString * const kTimestamp = @"timestamp";
 //
 //// Flags
 //NSString * const kBuild20130625BugFix = @"kBuild20130625BugFix";
